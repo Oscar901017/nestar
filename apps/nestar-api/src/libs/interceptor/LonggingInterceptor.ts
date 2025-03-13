@@ -1,19 +1,32 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
-import { Observable, tap } from "rxjs";
-
-
+import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
+import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
+import { stringify } from 'querystring';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class LonggingInterceptor implements NestInterceptor {
-    intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-        console.log('Before...');
+	private readonly_logger: Logger = new Logger();
+	logger: any;
 
-        const now = Date.now();
-        return next
-        .handle()
-        .pipe(
-            tap(() => console.log(`After... ${Date.now() -now}ms`)),
-        );
-        
-    }
+	public intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
+		const recordTime = Date.now();
+		const requstType = context.getType<GqlContextType>();
+		
+
+		if (requstType === 'http') {
+			//Develop if nedded!
+		} else if (requstType === 'graphql') {
+            const gqlContext = GqlExecutionContext.create(context);
+
+            this.logger.log(`Type ${requstType}`, 'REQUEST');
+			return next.handle().pipe(
+				tap(() => {
+					const responseTime = Date.now() - recordTime;
+					console.log(`${responseTime}ms`, 'RESPONSE');
+				}),
+			);
+		}
+	}
+    
 }
