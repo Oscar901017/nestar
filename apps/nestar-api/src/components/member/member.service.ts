@@ -20,8 +20,8 @@ export class MemberService {
 			// TODO: Authentication via TOKEN
 			return result;
 		} catch (err) {
-			console.log('Error, Service.model:', err);
-			throw new BadGatewayException(err);
+			console.log('Error, Service.model:', err.message);
+			throw new BadGatewayException(Message.USED_MEMBER_NICK_OR_PHONE);
 		}
 	}
 
@@ -34,13 +34,13 @@ export class MemberService {
 
 		if (!response || response.memberStatus === MemberStatus.DELETE) {
 			throw new InternalServerErrorException(Message.NO_MEMBER_NICK);
-		} else if(response.memberStatus === MemberStatus.BLOCK) {
+		} else if (response.memberStatus === MemberStatus.BLOCK) {
 			throw new InternalServerErrorException(Message.BLOCKED_USER);
 		}
 
-		//TODO: Compare passwords 
+		//TODO: Compare passwords
 		const isMatch = memberPassword === response.memberPassword;
-		if(!isMatch) throw new InternalServerErrorException(Message.WRONG_PASSWORD)
+		if (!isMatch) throw new InternalServerErrorException(Message.WRONG_PASSWORD);
 
 		return response;
 	}
