@@ -1,3 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
 // TASK-ZK:
 
 // Shunday function yozing, u har soniyada bir marta consolega 1 dan 5 gacha bolgan raqamlarni chop etsin va 5 soniyadan keyin ishini toxtatsin.
