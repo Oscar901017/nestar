@@ -19,6 +19,7 @@ import { AuthService } from '../componenets/auth/auth.service';
 		CommentModule,
 		FollowModule,
 		ViewModule,
+		
 	],
 	providers: [AuthService],
 })
