@@ -7,6 +7,7 @@ import { LikeModule } from '../componenets/like/like.module';
 import { CommentModule } from '../componenets/comment/comment.module';
 import { FollowModule } from '../componenets/follow/follow.module';
 import { ViewModule } from '../componenets/view/view.module';
+import { AuthService } from '../componenets/auth/auth.service';
 
 @Module({
 	imports: [
@@ -19,5 +20,6 @@ import { ViewModule } from '../componenets/view/view.module';
 		FollowModule,
 		ViewModule,
 	],
+	providers: [AuthService],
 })
 export class ComponentsModule {}
