@@ -6,27 +6,33 @@ import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class LonggingInterceptor implements NestInterceptor {
-	private readonly_logger: Logger = new Logger();
+	private readonly Logger: Logger = new Logger();
 	logger: any;
 
-	public intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
+	public intercept(context: ExecutionContext, next: CallHandler): Observable<any> | Observable<any> {
 		const recordTime = Date.now();
 		const requstType = context.getType<GqlContextType>();
-		
 
 		if (requstType === 'http') {
-			//Develop if nedded!
+			/*Develop if nedded! */
 		} else if (requstType === 'graphql') {
-            const gqlContext = GqlExecutionContext.create(context);
+			/*  (1) Print  request  **/
+			const gqlContext = GqlExecutionContext.create(context);
+			this.logger.log(`${this.stringify(gqlContext.getContext().req.body)}`, 'REQUEST');
 
-            this.logger.log(`Type ${requstType}`, 'REQUEST');
+			/* (2) Errors handing via GraphQL **/
+
+			/*   (3) No Errors,  giving  Respomse below **/
 			return next.handle().pipe(
-				tap(() => {
+				tap((context) => {
 					const responseTime = Date.now() - recordTime;
-					console.log(`${responseTime}ms`, 'RESPONSE');
+					this.logger.log(`${this.stringify(context)}-${responseTime}ms \n\n`, 'RESPONSE');
 				}),
 			);
 		}
 	}
-    
+
+	private stringify(context: ExecutionContext): string {
+		return JSON.stringify(context).slice(0, 75);
+	}
 }
