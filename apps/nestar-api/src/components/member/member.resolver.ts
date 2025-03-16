@@ -10,6 +10,7 @@ import { Roles } from '../../componenets/auth/decorators/roles.decorator';
 import { MemberType } from '../../libs/enums/member.enum';
 import { RolesGuard } from '../../componenets/auth/guards/roles.guard';
 import { MemberUpdate } from '../../libs/dto/member/member.update';
+import { shapeIntoMongoObjectId } from '../../libs/config';
 
 @Resolver()
 export class MemberResolver {
@@ -29,35 +30,37 @@ export class MemberResolver {
 
 	@UseGuards(AuthGuard)
 	@Mutation(() => String)
-	public async checkAuth(@AuthMember('memberNick') memberNick: string): Promise<string> {
-		console.log('Query: checkAuth');
+	public async(@AuthMember('memberNick') memberNick: string): Promise<string> {
+		console.log('Query: ');
 		console.log('memberNick:', memberNick);
 		return `Hi ${memberNick}`;
 	}
 
-	@Roles(MemberType.USER, MemberType.AGENT)    
+	@Roles(MemberType.USER, MemberType.AGENT)
 	@UseGuards(RolesGuard)
 	@Mutation(() => String)
-	public async checkAuthRoles(@AuthMember() authMember: Member): Promise<string> {
-		console.log('Query: checkAuthRoles');	;
+	public async Roles(@AuthMember() authMember: Member): Promise<string> {
+		console.log('Query: Roles');
 		return `Hi ${authMember.memberNick}, you are ${authMember.memberType} (memberId: ${authMember._id})`;
 	}
 
-
 	@UseGuards(AuthGuard)
 	@Mutation(() => Member)
-	public async updateMember(@Args("input") input:MemberUpdate,
-	 @AuthMember('_id') memberId: ObjectId): Promise<Member> {
-		console.log("memberId:", memberId);
-		delete input._id;	
-		
+	public async updateMember(
+		@Args('input') input: MemberUpdate,
+		@AuthMember('_id') memberId: ObjectId,
+	): Promise<Member> {
+		console.log('memberId:', memberId);
+		delete input._id;
+
 		return this.memberService.updateMember(memberId, input);
 	}
 
-	@Query(() => String)
-	public async getMember(): Promise<string> {
+	@Query(() => Member)
+	public async getMember(@Args("memberId") input:string): Promise<Member> {
 		console.log('Query: getMember');
-		return this.memberService.getMember();
+		const targetId= shapeIntoMongoObjectId(input);
+		return this.memberService.getMember(targetId);
 	}
 	/** ADMIN **/
 
