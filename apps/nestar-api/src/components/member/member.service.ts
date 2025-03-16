@@ -61,10 +61,7 @@ export class MemberService {
 		return 'getMember  executed!';
 	}
 
-	// // public async verifyToken(token: string): Promise<Member> {
-	// // 	const member = await this.jwtService.verifyAsync(token);
-	// // 	return member;
-	// }
+
 
 	public async getAllMembersByAdmin(): Promise<string> {
 		return 'updateMember  executed!';
