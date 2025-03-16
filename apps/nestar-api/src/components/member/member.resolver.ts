@@ -29,18 +29,18 @@ export class MemberResolver {
 	}
 
 	@UseGuards(AuthGuard)
-	@Mutation(() => String)
-	public async(@AuthMember('memberNick') memberNick: string): Promise<string> {
-		console.log('Query: ');
+	@Query(() => String)
+	public async checkAuth(@AuthMember('memberNick') memberNick: string): Promise<string> {
+		console.log('Query: checkAuth');
 		console.log('memberNick:', memberNick);
 		return `Hi ${memberNick}`;
 	}
 
 	@Roles(MemberType.USER, MemberType.AGENT)
 	@UseGuards(RolesGuard)
-	@Mutation(() => String)
-	public async Roles(@AuthMember() authMember: Member): Promise<string> {
-		console.log('Query: Roles');
+	@Query(() => String)
+	public async checcheckAuthRoles(@AuthMember() authMember: Member): Promise<string> {
+		console.log('Query:checkAuthRoles');
 		return `Hi ${authMember.memberNick}, you are ${authMember.memberType} (memberId: ${authMember._id})`;
 	}
 
@@ -57,9 +57,9 @@ export class MemberResolver {
 	}
 
 	@Query(() => Member)
-	public async getMember(@Args("memberId") input:string): Promise<Member> {
+	public async getMember(@Args('memberId') input: string): Promise<Member> {
 		console.log('Query: getMember');
-		const targetId= shapeIntoMongoObjectId(input);
+		const targetId = shapeIntoMongoObjectId(input);
 		return this.memberService.getMember(targetId);
 	}
 	/** ADMIN **/
