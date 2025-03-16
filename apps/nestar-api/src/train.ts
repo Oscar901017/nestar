@@ -1,3 +1,18 @@
+// TASK-ZN:
+
+// Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
+// MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]
+
+function rotateArray(arr, num) {
+	if (!Array.isArray(arr) || typeof num !== 'number') {
+		throw new Error('Invalid input');
+	}
+	let len = arr.length;
+	let rotateIndex = len - num;
+	return arr.slice(rotateIndex).concat(arr.slice(0, rotateIndex));
+}
+
+console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
 
 // TASK ZM:
 
@@ -10,26 +25,13 @@
 // Yuqoridagi misolda, function kiritilgan raqamlarni orqasiga
 // o'girib (reverse) qilib qaytarmoqda.
 
+// function reverseInteger(num) {
+//     return parseInt(num.toString().split('').reverse().join(''), 10);
+// }
 
-function reverseInteger(num) {
-    return parseInt(num.toString().split('').reverse().join(''), 10);
-}
+// console.log(reverseInteger(123456789));
 
-console.log(reverseInteger(123456789)); 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// TASK-ZL:
+//** TASK-ZL:
 
 // Shunday function yozing, u parametrda berilgan stringni kebab casega otkazib qaytarsin. Bosh harflarni kichik harflarga ham otkazsin.
 // MASALAN: stringToKebab(“I love Kebab”) return “i-love-kebab”
