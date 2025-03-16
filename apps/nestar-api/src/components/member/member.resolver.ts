@@ -9,6 +9,7 @@ import { ObjectId } from 'mongoose';
 import { Roles } from '../../componenets/auth/decorators/roles.decorator';
 import { MemberType } from '../../libs/enums/member.enum';
 import { RolesGuard } from '../../componenets/auth/guards/roles.guard';
+import { MemberUpdate } from '../../libs/dto/member/member.update';
 
 @Resolver()
 export class MemberResolver {
@@ -28,15 +29,6 @@ export class MemberResolver {
 
 	@UseGuards(AuthGuard)
 	@Mutation(() => String)
-	public async updateMember(@AuthMember('_id') memberId: ObjectId): Promise<string> {
-		console.log('Mutation: updateMember');
-		console.log(typeof memberId);
-		console.log(memberId);
-		return this.memberService.updateMember();
-	}
-
-	@UseGuards(AuthGuard)
-	@Mutation(() => String)
 	public async checkAuth(@AuthMember('memberNick') memberNick: string): Promise<string> {
 		console.log('Query: checkAuth');
 		console.log('memberNick:', memberNick);
@@ -52,7 +44,15 @@ export class MemberResolver {
 	}
 
 
-
+	@UseGuards(AuthGuard)
+	@Mutation(() => Member)
+	public async updateMember(@Args("input") input:MemberUpdate,
+	 @AuthMember('_id') memberId: ObjectId): Promise<Member> {
+		console.log("memberId:", memberId);
+		delete input._id;	
+		
+		return this.memberService.updateMember(memberId, input);
+	}
 
 	@Query(() => String)
 	public async getMember(): Promise<string> {
