@@ -1,3 +1,28 @@
+// TASK-ZO:
+
+// Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
+// MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true
+
+function areParenthesesBalanced(s) {
+	let count = 0;
+	for (let char of s) {
+		if (char === '(') {
+			count++;
+		} else if (char === ')') {
+			count--;
+		}
+		if (count < 0) {
+			return false;
+		}
+	}
+	return count === 0;
+}
+
+console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda')); // true
+console.log(areParenthesesBalanced('((test))')); // true
+console.log(areParenthesesBalanced('(test')); // false
+console.log(areParenthesesBalanced('test)')); // false
+
 // TASK-ZN:
 
 // Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
