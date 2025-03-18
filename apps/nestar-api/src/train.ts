@@ -3,16 +3,16 @@
 // Shunday function yozing, uni array va number parametri bolsin. Ikkinchi parametrda berilgan raqamli indexgacha arrayni orqasiga ogirib qaytarsin.
 // MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3) return [5, 6, 1, 2, 3, 4]
 
-function rotateArray(arr, num) {
-	if (!Array.isArray(arr) || typeof num !== 'number') {
-		throw new Error('Invalid input');
-	}
-	let len = arr.length;
-	let rotateIndex = len - num;
-	return arr.slice(rotateIndex).concat(arr.slice(0, rotateIndex));
-}
+// function rotateArray(arr, num) {
+// 	if (!Array.isArray(arr) || typeof num !== 'number') {
+// 		throw new Error('Invalid input');
+// 	}
+// 	let len = arr.length;
+// 	let rotateIndex = len - num;
+// 	return arr.slice(rotateIndex).concat(arr.slice(0, rotateIndex));
+// }
 
-console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
+// console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
 
 // TASK ZM:
 

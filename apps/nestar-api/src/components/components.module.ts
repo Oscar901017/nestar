@@ -20,7 +20,6 @@ import { ViewService } from '../componenets/view/view.service';
 		CommentModule,
 		FollowModule,
 		ViewModule,
-		
 	],
 	providers: [AuthService, ViewService],
 })

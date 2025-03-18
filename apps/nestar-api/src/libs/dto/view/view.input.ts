@@ -8,7 +8,8 @@ export class ViewInput {
 
     @IsNotEmpty()   
     @Field(() => ViewGroup)
-    memberId: string;
+    memberId: ObjectId;
+    //memberId: string;
 
     @IsNotEmpty()   
     @Field(() => String)
