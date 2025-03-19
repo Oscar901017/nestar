@@ -12,13 +12,13 @@ export class View {
 	viewGroup: ViewGroup;
 
 	@Field(() => String)
-	viewRefId: ViewGroup;
+	viewRefId: ObjectId;
 
 	@Field(() => String)
-	memberId: ViewGroup;
+	memberId: ObjectId;
 
-    @Field(() => Date)
-	createAt?: Date;
+	@Field(() => Date)
+	createdAt?: Date;
 
 	@Field(() => Date)
 	updatedAt?: Date;
