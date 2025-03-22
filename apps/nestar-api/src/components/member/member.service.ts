@@ -13,7 +13,7 @@ import { ViewGroup } from '../../libs/enums/view.enum';
 
 @Injectable()
 export class MemberService {
-	jwtService: any;
+	
 	constructor(
 		@InjectModel('Member') private readonly memberModel: Model<Member>,
 		private authService: AuthService,
