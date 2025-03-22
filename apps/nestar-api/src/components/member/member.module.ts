@@ -13,5 +13,6 @@ import { ViewModule } from '../../componenets/view/view.module';
 		AuthModule,
 		ViewModule],
 	providers: [MemberResolver, MemberService],
+	exports:[MemberService],
 })
 export class MemberModule {}
