@@ -1,5 +1,7 @@
 import { Schema } from 'mongoose';
 import { ViewGroup } from '../libs/enums/view.enum';
+import { Injectable } from '@nestjs/common';
+
 
 const ViewSchema = new Schema(
 	{

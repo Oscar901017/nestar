@@ -11,7 +11,7 @@
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:dev:batch": "nest start nestar-batch --watch",
-		"train": "nodemon --exec ts-node apps/nestar-api/src/train.ts", 
+		"train": "nodemon --exec ts-node apps/nestar-api/src/train.ts",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "cross-env  NODE_ENV=production node dist/apps/nestar-api/main",
 		"start:prod:batch": "node dist/apps/nestar-batch/main",
@@ -46,6 +46,7 @@
 		"mongoose": "^8.0.0",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.8.1",
+		"uuid": "^11.1.0",
 		"ws": "^8.14.2"
 	},
 	"devDependencies": {
