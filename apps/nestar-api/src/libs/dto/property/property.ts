@@ -2,26 +2,27 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ObjectId } from 'mongoose';
 import { MemberAuthType, MemberStatus, MemberType } from '../../enums/member.enum';
 import { PropertyLocation, PropertyStatus, PropertyType } from '../../enums/property.enum';
+import { Member } from '../member/member';
 
 @ObjectType()
 export class Property {
 	@Field(() => String)
 	_id: ObjectId;
 
-	@Field(() => PropertyType )
-	propertyType:PropertyType;
+	@Field(() => PropertyType)
+	propertyType: PropertyType;
 
-	@Field(() => PropertyStatus )
-	propertyStatus:PropertyStatus;
+	@Field(() => PropertyStatus)
+	propertyStatus: PropertyStatus;
 
-	@Field(() => PropertyLocation )
-	propertyLocation:PropertyLocation;
-
-	@Field(() => String)
-	propertyAddress:string;
+	@Field(() => PropertyLocation)
+	propertyLocation: PropertyLocation;
 
 	@Field(() => String)
-	propertyTitle:string;
+	propertyAddress: string;
+
+	@Field(() => String)
+	propertyTitle: string;
 
 	@Field(() => Number)
 	propertyPrice: number;
@@ -50,31 +51,35 @@ export class Property {
 	@Field(() => [String])
 	propertyImages: string[];
 
-	@Field(() =>String,{nullable:true})
+	@Field(() => String, { nullable: true })
 	propertyDesc?: string;
 
-	@Field(() =>Boolean)
+	@Field(() => Boolean)
 	propertyBarter: boolean;
 
-	@Field(() =>Boolean)
+	@Field(() => Boolean)
 	propertyRent: boolean;
 
 	@Field(() => String)
 	memberId: ObjectId;
 
-	@Field(() =>Date, {nullable: true})
+	@Field(() => Date, { nullable: true })
 	soldA?: Date;
 
-	@Field(() =>Date, {nullable: true})
+	@Field(() => Date, { nullable: true })
 	deletedAt?: Date;
 
-	@Field(() =>Date, {nullable: true})
+	@Field(() => Date, { nullable: true })
 	constructedAt?: Date;
 
-	
 	@Field(() => Date)
 	createAt: Date;
 
 	@Field(() => Date)
 	updatedAt: Date;
+
+	/** from aggregation **/
+
+	@Field(() => Member, { nullable: true })
+	memberData?: Member;
 }
