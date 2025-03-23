@@ -7,8 +7,7 @@ import { ObjectId } from 'mongoose';
 export class ViewInput {
 	@IsNotEmpty()
 	@Field(() => String)
-	memberId: ObjectId;
-	//memberId: string;
+	memberId: ObjectId;	
 
 	@IsNotEmpty()
 	@Field(() => String)

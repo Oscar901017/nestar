@@ -18,7 +18,7 @@ export class MemberInput {
 
 	@IsNotEmpty()
 	@Field(() => String)
-	memberPhone: String;
+	memberPhone: string;
 
 	@IsOptional()
 	@Field(() => MemberType, { nullable: true })
@@ -26,7 +26,7 @@ export class MemberInput {
 
 	@IsOptional()
 	@Field(() => MemberAuthType, { nullable: true })
-	memberAuthType?: MemberType;
+	memberAuthType?: MemberAuthType;
 }
 
 @InputType()
@@ -41,7 +41,6 @@ export class LoginInput {
 	@Field(() => String)
 	memberPassword: string;
 }
-
 
 @InputType()
 class AISearch {
@@ -76,10 +75,8 @@ export class AgentsInquery {
 	search: AISearch;
 }
 
-
 @InputType()
 class MISearch {
-
 	@IsOptional()
 	@Field(() => MemberStatus, { nullable: true })
 	memberStatus?: MemberStatus;
@@ -87,8 +84,7 @@ class MISearch {
 	@IsOptional()
 	@Field(() => MemberType, { nullable: true })
 	memberType?: MemberType;
-	
-	
+
 	@IsOptional()
 	@Field(() => String, { nullable: true })
 	text?: string;

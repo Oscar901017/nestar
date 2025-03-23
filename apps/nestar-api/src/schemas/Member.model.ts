@@ -91,7 +91,7 @@ const MemberSchema = new Schema(
 			default: 0,
 		},
 
-		memberCommints: {
+		memberComments: {
 			type: Number,
 			default: 0,
 		},
@@ -115,7 +115,7 @@ const MemberSchema = new Schema(
 			type: Date,
 		},
 	},
-	{ timestamps: true, collation: { locale: 'en', strength: 2 } }, //'member' quyilsa xatolik berildi
+	{ timestamps: true, collection: 'members' },
 );
 
 export default MemberSchema;

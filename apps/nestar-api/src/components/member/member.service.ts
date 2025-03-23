@@ -1,4 +1,4 @@
-import { BadGatewayException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { BadGatewayException, BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId, Schema } from 'mongoose';
 import { Member, Members } from '../../libs/dto/member/member';
@@ -10,6 +10,7 @@ import { MemberUpdate } from '../../libs/dto/member/member.update';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { ViewService } from '../../componenets/view/view.service';
 import { ViewGroup } from '../../libs/enums/view.enum';
+import { ViewInput } from '../../libs/dto/view/view.input';
 
 @Injectable()
 export class MemberService {
@@ -30,15 +31,15 @@ export class MemberService {
 			result.accessToken = await this.authService.createToken(result);
 			return result;
 		} catch (err) {
-			console.log('Error, Service.model:', err.mes);
-			throw new BadGatewayException(Message.USED_MEMBER_NICK_OR_PHONE);
+			console.log('Error, Service.model:', err.message);
+			throw new BadRequestException(Message.USED_MEMBER_NICK_OR_PHONE);
 		}
 	}
 
 	public async login(input: LoginInput): Promise<Member> {
 		const { memberNick, memberPassword } = input;
 		const response: Member = await this.memberModel
-			.findOne({ memmberNick: memberNick })
+			.findOne({ memberNick: memberNick })
 			.select('+memberPassword')
 			.exec();
 
@@ -48,7 +49,6 @@ export class MemberService {
 			throw new InternalServerErrorException(Message.BLOCKED_USER);
 		}
 
-		//TODO: Compare passwords
 		const isMatch = await this.authService.comparePasswords(input.memberPassword, response.memberPassword);
 		if (!isMatch) throw new InternalServerErrorException(Message.WRONG_PASSWORD);
 		response.accessToken = await this.authService.createToken(response);
@@ -86,7 +86,7 @@ export class MemberService {
 		if (memberId) {
 			//record view
 
-			const viewInput = { memberId: memberId, viewRefId: targetId, viewGroup: ViewGroup.MEMBER };
+			const viewInput: ViewInput = { memberId: memberId, viewRefId: targetId, viewGroup: ViewGroup.MEMBER };
 
 			const newView = await this.viewService.recordView(viewInput);
 			if (newView) {
@@ -160,7 +160,7 @@ export class MemberService {
 	}
 
 	public async memberStatsEditor(input: StatisticModifier): Promise<Member> {
-		console.log('executed')
+		console.log('executed');
 		const { _id, targetKey, modifier } = input;
 		return await this.memberModel.findOneAndUpdate(_id, { $inc: { [targetKey]: modifier } }, { new: true }).exec();
 	}
