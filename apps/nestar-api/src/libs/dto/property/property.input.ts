@@ -170,31 +170,71 @@ export class PropertiesInquiry {
 class APISearch {
 	@IsOptional()
 	@Field(() => PropertyStatus, { nullable: true })
-	propertyStatus?: PropertyStatus;	
-}
+	propertyStatus?: PropertyStatus;
 
+	@IsOptional()
+    @Field(() => [String], { nullable: true })
+    propertyLocationList?: string[]; /////////////////////
+}
 @InputType()
 export class AgentPropertiesInquiry {
 	@IsNotEmpty()
 	@Min(1)
 	@Field(() => Int)
-	page:number;
+	page: number;
 
 	@IsNotEmpty()
 	@Min(1)
 	@Field(() => Int)
-	limit:number;
+	limit: number;
 
 	@IsOptional()
 	@IsIn(avialablePropertySorts)
-	@Field(() => String, {nullable: true})
+	@Field(() => String, { nullable: true })
 	sort?: string;
 
 	@IsOptional()
-	@Field(() => Direction, {nullable:true})
+	@Field(() => Direction, { nullable: true })
 	direction?: Direction;
 
 	@IsNotEmpty()
 	@Field(() => APISearch)
 	search: APISearch;
+}
+
+@InputType()
+class ALPSearch {
+	@IsOptional()
+	@Field(() => PropertyStatus, { nullable: true })
+	propertyStatus?: PropertyStatus;
+
+	@IsOptional()
+	@Field(() => [PropertyLocation], { nullable: true })
+	propertyLocation: PropertyLocation;
+}
+
+@InputType()
+export class AllPropertiesInquiry {
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	page: number;
+
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	limit: number;
+
+	@IsOptional()
+	@IsIn(avialablePropertySorts)
+	@Field(() => String, { nullable: true })
+	sort?: string;
+
+	@IsOptional()
+	@Field(() => Direction, { nullable: true })
+	direction?: Direction;
+
+	@IsNotEmpty()
+	@Field(() => ALPSearch)
+	search: ALPSearch;
 }

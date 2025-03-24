@@ -3,20 +3,20 @@
 // Shunday function yozing, u parametridagi string ichidagi raqam va sonlarni sonini sanasin.
 // MASALAN: countNumberAndLetters(“string152%\¥”) return {number:3, letter:6}
 
-function countNumberAndLetters(input) {
-	let result = { number: 0, letter: 0 };
+// function countNumberAndLetters(input) {
+// 	let result = { number: 0, letter: 0 };
 
-	for (let char of input) {
-		if (/[0-9]/.test(char)) {
-			result.number++;
-		} else if (/[a-zA-Z]/.test(char)) {
-			result.letter++;
-		}
-	}
+// 	for (let char of input) {
+// 		if (/[0-9]/.test(char)) {
+// 			result.number++;
+// 		} else if (/[a-zA-Z]/.test(char)) {
+// 			result.letter++;
+// 		}
+// 	}
 
-	return result;
-}
-console.log(countNumberAndLetters('string152%\\¥'));
+// 	return result;
+// }
+// console.log(countNumberAndLetters('string152%\\¥'));
 
 // TASK-ZO:
 
