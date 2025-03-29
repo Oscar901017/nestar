@@ -3,24 +3,24 @@
 // Shunday function yozing, u parametridagi array ichida 2 marta qaytarilgan sonlarni alohida araryda qaytarsin.
 // MASALAN: findDuplicates([1,2,3,4,5,4,3,4]) return [3, 4]
 
-function findDuplicates(arr) {
-	const counts = {};
+// function findDuplicates(arr) {
+// 	const counts = {};
 
-	for (const num of arr) {
-		counts[num] = (counts[num] || 0) + 1;
-	}
+// 	for (const num of arr) {
+// 		counts[num] = (counts[num] || 0) + 1;
+// 	}
 
-	const duplicates = [];
-	for (const num in counts) {
-		if (counts[num] === 2) {
-			duplicates.push(parseInt(num));
-		}
-	}
+// 	const duplicates = [];
+// 	for (const num in counts) {
+// 		if (counts[num] === 2) {
+// 			duplicates.push(parseInt(num));
+// 		}
+// 	}
 
-	return duplicates;
-}
+// 	return duplicates;
+// }
 
-console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
+// console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
 
 // TASK-ZP:
 

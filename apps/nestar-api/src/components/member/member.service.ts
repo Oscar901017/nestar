@@ -5,10 +5,10 @@ import { Member, Members } from '../../libs/dto/member/member';
 import { AgentsInquery, LoginInput, MemberInput, MembersInquery } from '../../libs/dto/member/member.input';
 import { MemberStatus, MemberType } from '../../libs/enums/member.enum';
 import { Direction, Message } from '../../libs/enums/common.enum';
-import { AuthService } from '../../componenets/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { MemberUpdate } from '../../libs/dto/member/member.update';
 import { StatisticModifier, T } from '../../libs/types/common';
-import { ViewService } from '../../componenets/view/view.service';
+import { ViewService } from '../view/view.service';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { ViewInput } from '../../libs/dto/view/view.input';
 

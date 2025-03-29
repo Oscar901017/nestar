@@ -13,7 +13,7 @@ import { MemberService } from '../member/member.service';
 import { PropertyStatus } from '../../libs/enums/property.enum';
 import { ViewGroup } from '../../libs/enums/view.enum';
 import { StatisticModifier, T } from '../../libs/types/common';
-import { ViewService } from '../../componenets/view/view.service';
+import { ViewService } from '../view/view.service';
 import { PropertyUpdate } from '../../libs/dto/property/property.update';
 import moment from 'moment';
 import { lookupMember, shapeIntoMongoObjectId } from '../../libs/config';

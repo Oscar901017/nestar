@@ -7,13 +7,13 @@ import {
 	PropertiesInquiry,
 	PropertyInput,
 } from '../../libs/dto/property/property.input';
-import { Roles } from '../../componenets/auth/decorators/roles.decorator';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { MemberType } from '../../libs/enums/member.enum';
 import { UseGuards } from '@nestjs/common';
-import { RolesGuard } from '../../componenets/auth/guards/roles.guard';
-import { AuthMember } from '../../componenets/auth/decorators/authMember.decorator';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { AuthMember } from '../auth/decorators/authMember.decorator';
 import { ObjectId } from 'mongoose';
-import { WithoutGuard } from '../../componenets/auth/guards/without.guard';
+import { WithoutGuard } from '../auth/guards/without.guard';
 import { shapeIntoMongoObjectId } from '../../libs/config';
 import { Query } from '@nestjs/graphql';
 import { PropertyUpdate } from '../../libs/dto/property/property.update';

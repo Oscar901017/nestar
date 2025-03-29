@@ -1,4 +1,4 @@
-import { ViewService } from './view.service';
+import { ViewService } from '../view/view.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import ViewSchema from '../../schemas/View.model';
 import { Module } from '@nestjs/common';
