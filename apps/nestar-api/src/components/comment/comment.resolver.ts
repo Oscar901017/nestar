@@ -11,6 +11,9 @@ import { CommentUpdate } from '../../libs/dto/comment/comment.update';
 import { shapeIntoMongoObjectId } from '../../libs/config';
 import { WithoutGuard } from '../auth/guards/without.guard';
 import { Query } from '@nestjs/graphql';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { MemberType } from '../../libs/enums/member.enum';
 
 @Resolver()
 export class CommentResolver {
@@ -47,5 +50,14 @@ export class CommentResolver {
 		input.search.commentRefId = shapeIntoMongoObjectId(input.search.commentRefId);
 		const result = await this.commentService.getComments(memberId, input);
 		return result;
+	}
+	/** ADMIN  **/
+	@Roles(MemberType.ADMIN)
+	@UseGuards(RolesGuard)
+	@Mutation((returns) => Comment)
+	public async removeCommentByAdmin(@Args('commentId') input: string): Promise<Comment> {
+		console.log('Mutation: removeCommentByAdmin');
+		const commentId = shapeIntoMongoObjectId(input);
+		return await this.commentService.removeCommentByAdmin(commentId);
 	}
 }
