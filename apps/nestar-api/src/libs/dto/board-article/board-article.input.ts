@@ -7,8 +7,10 @@ import { Direction } from '../../enums/common.enum';
 @InputType()
 export class BoardArticleInput {
 	@IsNotEmpty()
-	@Field(() => BoardArticleCategory)
+	@Field(() => String, { nullable: true })
+	_id?: ObjectId;
 	articleCategory: BoardArticleCategory;
+	articleStatus?: string;
 
 	@IsNotEmpty()
 	@Length(3, 50)
@@ -66,6 +68,7 @@ export class BoardArticlesInquiry {
 	@IsNotEmpty()
 	@Field(() => BAISearch)
 	search: BAISearch;
+	list: number;
 }
 
 @InputType()
