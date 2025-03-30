@@ -5,7 +5,7 @@ import { ObjectId } from 'mongoose';
 @ObjectType()
 export class MeLiked {
 	@Field(() => String)
-	memberId: ObjectId;
+	memberId: ObjectId;		
 
 	@Field(() => String)
 	likeRefId: ObjectId;
@@ -34,5 +34,3 @@ export class Like {
 	@Field(() => Date)
 	updatedAt: Date;
 }
-
-
