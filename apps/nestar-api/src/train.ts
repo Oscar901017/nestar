@@ -1,21 +1,39 @@
+// TASK-ZS:
+// Shunday funktsiya yozing, u parametridagi arrayni ichida 1 marta kelgan elemnetni qaytarsin.
+// MASALAN: singleNumber([4, 2, 1, 2, 1]) 4-ni qaytaradi
+
+function singleNumber(nums) {
+	let count = {};
+
+	for (let num of nums) {
+		count[num] = (count[num] || 0) + 1;
+	}
+
+	for (let key in count) {
+		if (count[key] === 1) return Number(key);
+	}
+}
+
+console.log(singleNumber([4, 2, 1, 2, 1]));
+
 // TASK-ZR:
 
 // Shunday function yozing, u parametridagi string ichidagi raqam va sonlarni sonini sanasin.
 // MASALAN: countNumberAndLetters(“string152%\¥”) return {number:3, letter:6}
 
-function countNumberAndLetters(input) {
-	let result = { number: 0, letter: 0 };
+// function countNumberAndLetters(input) {
+// 	let result = { number: 0, letter: 0 };
 
-	for (let char of input) {
-		if (/[0-9]/.test(char)) {
-			result.number++;
-		} else if (/[a-zA-Z]/.test(char)) {
-			result.letter++;
-		}
-	}
-	return result;
-}
-console.log(countNumberAndLetters('string152%\\¥'));
+// 	for (let char of input) {
+// 		if (/[0-9]/.test(char)) {
+// 			result.number++;
+// 		} else if (/[a-zA-Z]/.test(char)) {
+// 			result.letter++;
+// 		}
+// 	}
+// 	return result;
+// }
+// console.log(countNumberAndLetters('string152%\\¥'));
 
 // TASK-ZQ:
 
