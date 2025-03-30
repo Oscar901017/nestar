@@ -15,6 +15,9 @@ import { ViewGroup } from '../../libs/enums/view.enum';
 import { StatisticModifier, T } from '../../libs/types/common';
 import { lookupMember, shapeIntoMongoObjectId } from '../../libs/config';
 import { BoardArticleUpdate } from '../../libs/dto/board-article/board-article.update';
+import { LikeGroup } from '../../libs/enums/like.enum';
+import { LikeInput } from '../../libs/dto/like/like.input';
+import { LikeService } from '../like/like.service';
 
 @Injectable()
 export class BoardArticleService {
@@ -22,6 +25,7 @@ export class BoardArticleService {
 		@InjectModel('BoardArticle') private readonly boardArticleModel: Model<BoardArticle>,
 		private readonly memberService: MemberService,
 		private readonly viewService: ViewService,
+		private readonly likeService: LikeService,
 	) {}
 
 	public async createBoardArticle(memberId: ObjectId, input: BoardArticleInput): Promise<BoardArticle> {
@@ -127,6 +131,29 @@ export class BoardArticleService {
 		return result[0];
 	}
 
+	public async likeTargetBoardArticle(memberId: ObjectId, likeRefId: ObjectId): Promise<BoardArticle> {
+		const target: BoardArticle = await this.boardArticleModel
+			.findOne({ _id: likeRefId, articleStatus: BoardArticleStatus.ACTIVE })
+			.exec();
+		if (!target) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
+
+		const input: LikeInput = {
+			memberId: memberId,
+			likeRefId: likeRefId,
+			likeGroup: LikeGroup.ARTICLE,
+		};
+
+		const modifier: number = await this.likeService.toogleLike(input);
+		const result = await this.boardArticleStatsEditor({
+			_id: likeRefId,
+			targetKey: 'articleLikes',
+			modifier: modifier,
+		});
+
+		if (!result) throw new InternalServerErrorException(Message.SOMETHING_WENT_WRONG);
+		return result;
+	}
+
 	public async getAllBoardArticlesByAdmin(input: AllBoardArticlesInquiry): Promise<BoardArticles> {
 		const { articleStatus, articleCategory } = input.search;
 		const match: T = {};
@@ -156,33 +183,33 @@ export class BoardArticleService {
 		return result[0];
 	}
 
-public async updateBoardArticleByAdmin(input: BoardArticleUpdate): Promise<BoardArticle>{
-	const {_id,articleStatus} = input;
+	public async updateBoardArticleByAdmin(input: BoardArticleUpdate): Promise<BoardArticle> {
+		const { _id, articleStatus } = input;
 
-	const result = await this.boardArticleModel
-	.findOneAndUpdate({ _id: _id, articleStatus: BoardArticleStatus.ACTIVE}	, input, {
-		new: true,			
-	})
-	.exec();
-	if(!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
+		const result = await this.boardArticleModel
+			.findOneAndUpdate({ _id: _id, articleStatus: BoardArticleStatus.ACTIVE }, input, {
+				new: true,
+			})
+			.exec();
+		if (!result) throw new InternalServerErrorException(Message.UPDATE_FAILED);
 
-	if(articleStatus === BoardArticleStatus.DELETE) {
-		await this.memberService.memberStatsEditor({
-			_id: result.memberId,
-			targetKey: 'memberArticles',
-			modifier: -1,
-		});
+		if (articleStatus === BoardArticleStatus.DELETE) {
+			await this.memberService.memberStatsEditor({
+				_id: result.memberId,
+				targetKey: 'memberArticles',
+				modifier: -1,
+			});
+		}
+		return result;
 	}
-	return result;
-}
 
-public async removeBoardArticleByAdmin(articleId: ObjectId): Promise<BoardArticle>{
-	const search: T = {_id:articleId, articleStatus: BoardArticleStatus.DELETE};
-	const result = await this.boardArticleModel.findOneAndDelete(search).exec();
-	if(!result) throw new InternalServerErrorException(Message.REMOVE_FAILED);
+	public async removeBoardArticleByAdmin(articleId: ObjectId): Promise<BoardArticle> {
+		const search: T = { _id: articleId, articleStatus: BoardArticleStatus.DELETE };
+		const result = await this.boardArticleModel.findOneAndDelete(search).exec();
+		if (!result) throw new InternalServerErrorException(Message.REMOVE_FAILED);
 
-	return result;
-}
+		return result;
+	}
 
 	public async boardArticleStatsEditor(input: StatisticModifier): Promise<BoardArticle> {
 		const { _id, targetKey, modifier } = input;

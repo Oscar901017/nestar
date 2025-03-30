@@ -6,6 +6,7 @@ import { BoardArticleResolver } from './board-article.resolver';
 import { AuthModule } from '../auth/auth.module';
 import { MemberModule } from '../member/member.module';
 import { ViewModule } from '../property/view.module';
+import { LikeModule } from '../like/like.module';
 
 @Module({
 	imports: [
@@ -18,6 +19,7 @@ import { ViewModule } from '../property/view.module';
     AuthModule,
     MemberModule,
     ViewModule,
+	LikeModule,
 	],
 
 	providers: [BoardArticleResolver, BoardArticleService],
