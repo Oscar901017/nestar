@@ -173,8 +173,8 @@ class APISearch {
 	propertyStatus?: PropertyStatus;
 
 	@IsOptional()
-    @Field(() => [String], { nullable: true })
-    propertyLocationList?: string[]; /////////////////////
+	@Field(() => [String], { nullable: true })
+	propertyLocationList?: string[]; /////////////////////
 }
 @InputType()
 export class AgentPropertiesInquiry {
@@ -237,4 +237,17 @@ export class AllPropertiesInquiry {
 	@IsNotEmpty()
 	@Field(() => ALPSearch)
 	search: ALPSearch;
+}
+
+@InputType()
+export class OrdinaryInquiry {
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	page: number;
+
+	@IsNotEmpty()
+	@Min(1)
+	@Field(() => Int)
+	limit: number;
 }
