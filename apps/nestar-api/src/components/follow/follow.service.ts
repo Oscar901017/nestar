@@ -6,7 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { T } from '../../libs/types/common';
 import { FollowInquiry } from '../../libs/dto/follow/follow.input';
-import { lookupFallowerData, lookupFallowingData, lookupMember } from '../../libs/config';
+import { lookupAuthMemberLiked, lookupFallowerData, lookupFallowingData, lookupMember } from '../../libs/config';
 
 @Injectable()
 export class FollowService {
@@ -75,6 +75,8 @@ export class FollowService {
                     list: [
                         {$skip: (page -1)* limit},
                         {$limit: limit},
+
+                        lookupAuthMemberLiked(memberId, "$followingId"),
                         //meLiked
                         //meFollowed
                         lookupFallowingData,
@@ -110,6 +112,8 @@ export class FollowService {
                     list: [
                         {$skip: (page -1)* limit},
                         {$limit: limit},
+
+                        lookupAuthMemberLiked(memberId, "$followerId"),
                         //meLiked
                         //meFollowed
                         lookupFallowerData,
