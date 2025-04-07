@@ -1,3 +1,27 @@
+// TASK-ZU:
+
+// Shunday function yozing, u parametridagi array ichida takrorlanmagan raqamlar yig'indisini qaytarsin.
+// MASALAN: sumOfUnique([1,2,3,2]) return 4
+
+function sumOfUnique(arr) {
+	const countMap = {};
+
+	for (const num of arr) {
+		countMap[num] = (countMap[num] || 0) + 1;
+	}
+
+	let sum = 0;
+	for (const num in countMap) {
+		if (countMap[num] === 1) {
+			sum += Number(num);
+		}
+	}
+
+	return sum;
+}
+
+console.log(sumOfUnique([1, 2, 3, 2]));
+
 // TASK-ZT:
 
 // Shunday function yozing, u parametridagi string ichida 1 martadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin.

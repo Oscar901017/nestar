@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { InjectConnection, MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
+import { InjectConnection} from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 
 @Module({
