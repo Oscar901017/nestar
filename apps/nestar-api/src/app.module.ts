@@ -8,6 +8,7 @@ import { ComponentsModule } from './components/components.module';
 import { DatabaseModule } from './database/database.module';
 import { T } from './libs/types/common';
 import { Module } from '@nestjs/common';
+import { SocketModule } from './socket/socket.module';
 
 @Module({
 	imports: [
@@ -29,6 +30,7 @@ import { Module } from '@nestjs/common';
 		}),
 		ComponentsModule,
 		DatabaseModule,
+		SocketModule,
 	],
 	controllers: [AppController],
 	providers: [AppService, AppResolver],

@@ -3,24 +3,24 @@
 // Shunday function yozing, u parametridagi string ichida 1 martadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin.
 // MASALAN: firstUniqueCharIndex(“stamp”) return 0
 
-function firstUniqueCharIndex(s) {
-	const charCount = {};
+// function firstUniqueCharIndex(s) {
+// 	const charCount = {};
 
-	for (let char of s) {
-		charCount[char] = (charCount[char] || 0) + 1;
-	}
+// 	for (let char of s) {
+// 		charCount[char] = (charCount[char] || 0) + 1;
+// 	}
 
-	for (let i = 0; i < s.length; i++) {
-		if (charCount[s[i]] === 1) {
-			return i;
-		}
-	}
+// 	for (let i = 0; i < s.length; i++) {
+// 		if (charCount[s[i]] === 1) {
+// 			return i;
+// 		}
+// 	}
 
-	return -1;
-}
-console.log(firstUniqueCharIndex('stamp'));
-console.log(firstUniqueCharIndex('hello'));
-console.log(firstUniqueCharIndex('aabbcc'));
+// 	return -1;
+// }
+// console.log(firstUniqueCharIndex('stamp'));
+// console.log(firstUniqueCharIndex('hello'));
+// console.log(firstUniqueCharIndex('aabbcc'));
 
 // TASK-ZS:
 // Shunday funktsiya yozing, u parametridagi arrayni ichida 1 marta kelgan elemnetni qaytarsin.
